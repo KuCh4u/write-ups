@@ -3,19 +3,17 @@
 ## Descripción
 Máquina vulnerable a un ataque de fuerza bruta con hydra al protocolo SSH.
 
-## Herramientas utilizadas
+## 🔧 Herramientas utilizadas
 - Nmap
 - Gobuster
 - Hydra
 
-## Técnicas aplicadas
+## 🧪 Técnicas aplicadas
 - Enumeración de puertos y servicios
 - Fuerza Bruta
 - Escalada de privilegios con sudo
 
-## Recomendaciones
-
-## Desarrollo del laboratorio
+## 🧑‍💻 Desarrollo del laboratorio
 Iniciamos con un escaneo de puertos y servicios con Nmap
 
 ![nmap](images/obsession/1.png)
@@ -70,3 +68,14 @@ encontramos el comando que ejecutaremos para acceder como root
 ![sudo_list](images/obsession/10.png)
 
 y listo, tenemos acceso como root al sistema.
+
+## 🛡️ Recomendaciones
+- **Evitar comentarios sensibles en el código fuente HTML**: El mensaje encontrado en el código fuente dio pistas que facilitaron el ataque. Se recomienda evitar dejar comentarios con información útil para un atacante en producción.
+
+- **Restringir o deshabilitar el acceso a directorios sensibles como `/backup`**: Estos directorios expuestos permitieron identificar al usuario del sistema. Se sugiere protegerlos mediante autenticación o eliminarlos si no son necesarios públicamente.
+
+- **Usar contraseñas fuertes y no basadas en diccionarios comunes**: La contraseña del usuario fue descubierta mediante un ataque de diccionario con `rockyou.txt`. Se recomienda implementar una política de contraseñas robustas y forzar el uso de autenticación multifactor (MFA) para accesos SSH.
+
+- **Limitar los comandos disponibles mediante `sudo`**: El usuario tenía permisos para ejecutar `vim` como root sin autenticación, lo que facilitó la escalada de privilegios. Se sugiere aplicar el principio de menor privilegio y auditar regularmente el archivo `sudoers`.
+
+- **Monitorizar y alertar sobre intentos de fuerza bruta**: No hubo ningún mecanismo que limitara los intentos de login SSH. Es recomendable implementar herramientas como Fail2Ban o configurar SSH para bloquear IPs tras varios intentos fallidos.
